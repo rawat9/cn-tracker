@@ -148,9 +148,10 @@ OTP_TOTP_ISSUER = 'Code Ninjas North Finchley'
 
 
 LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'dashboard'
+
 
 # SMTP Configuration
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
