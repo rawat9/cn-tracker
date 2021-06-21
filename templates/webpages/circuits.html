@@ -1,0 +1,59 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<!-- Main Content -->
+<div id="content">
+ 
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-4 text-gray-800">Circuits</h1>
+       
+        <div class="row">
+            {% for student in students %}
+            <div class="col-md-4">
+                <!-- Scratch Cards -->
+                <div class="card p-3 mb-2">
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex flex-row align-items-center">
+                            <div class="ms-2 c-details">
+                                <style>
+                                    .checked {
+                                    color: orange;
+                                    }
+                                </style>
+                                {% if student.rating == 1 %}
+                                <span class="fas fa-star checked"></span><span class="fas fa-star"></span><span class="fas fa-star"></span>
+                                {% elif student.rating == 2 %}
+                                <span class="fas fa-star checked"></span><span class="fas fa-star checked"></span><span class="fas fa-star"></span>
+                                {% elif student.rating == 3 %}
+                                <span class="fas fa-star checked"></span><span class="fas fa-star checked"></span><span class="fas fa-star checked"></span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="badge"> <span>{{ student.project_id.level }}</span> </div>
+                    </div>
+                    <div class="mt-5"> 
+                        <!-- <a style="cursor: pointer;" data-toggle="modal" data-target="#scratchModal"> -->
+                        <h3 class="heading">{{ student.project_id.project_name }}</h3>
+                        <!-- </a> -->
+                        <div class="mt-5">
+                            <div class="progress">
+                                <div class="progress-bar bg-info" role="progressbar" style="width: {{ student.completion_percentage }}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">{{ student.completion_percentage }}%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+
+</div>
+<!-- End of Main Content -->
+
+{% endblock %}

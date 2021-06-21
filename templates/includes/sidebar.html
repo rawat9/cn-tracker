@@ -1,0 +1,94 @@
+<!-- Sidebar -->
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'dashboard' user.id %}">
+        <div class="sidebar-brand-icon">
+            <i class="fas fa-user-ninja"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">Code Ninjas</div>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'dashboard' user.id %}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Activities
+    </div>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'scratch' user.id %}">
+            <i class="fas fa-fw fa-cat"></i>
+            <span>Scratch</span></a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'circuits' user.id %}">
+            <i class="fas fa-fw fa-plug"></i>
+            <span>Circuits</span></a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'artek' user.id %}">
+            <i class="fas fa-fw fa-robot"></i>
+            <span>Artek Robotics</span></a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'lego' user.id %}">
+            <i class="fas fa-fw fa-shapes"></i>
+            <span>LEGO</span></a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'typing' user.id %}">
+            <i class="fas fa-fw fa-keyboard"></i>
+            <span>Typing</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Addons
+    </div>
+
+    <li class="nav-item">
+        <a class="nav-link" href="#">
+            <i class="fas fa-fw fa-gamepad"></i>
+            <span>Drones</span></a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="#">
+            <i class="fas fa-fw fa-bowling-ball"></i>
+            <span>Spheres</span></a>
+    </li> 
+
+    <li class="nav-item">
+        <a class="nav-link" href="#">
+            <i class="fas fa-fw fa-laptop-code"></i>
+            <span>Microbit</span></a>
+    </li> 
+  
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+</ul>
+<!-- End of Sidebar -->
