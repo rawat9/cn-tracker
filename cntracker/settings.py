@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-n+626#f!6^j-*mqrt!-+r+9a2mvb=5bx^8+&!awfn$_9$(cfq'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['cn-north-finchley.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', 'cn-north-finchley.herokuapp.com']
 
 # Application definition
 
@@ -129,9 +129,11 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATIC_URL = '/static/'
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'cntracker/static')
 ]
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
