@@ -1,4 +1,4 @@
-from django.contrib.auth.models import Group, User
+from django.contrib.auth.models import User
 from activityform.models import Activity
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
@@ -53,8 +53,8 @@ def dashboard(request, pk):
 @login_required(login_url='login')
 @admin_only
 def scorecard(request):
-    users = User.objects.all().exclude(id=4).exclude(id=6)
-    projects = Project.objects.all()
+    users = User.objects.all().exclude(id=4).exclude(id=6).order_by('first_name')
+    projects = Project.objects.all().order_by('topic_id')
     topics = Topic.objects.all()
 
     cursor = connection.cursor()
