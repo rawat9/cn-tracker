@@ -23,7 +23,7 @@ from django_otp.admin import OTPAdminSite
 admin.site.__class__ = OTPAdminSite
 
 admin.site.site_header = "CODE NINJAS - North Finchley"
-admin.site.index_title = "Admin Panel"
+admin.site.index_title = "Admin Panel | Do Not Forget To Logout"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
