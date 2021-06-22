@@ -27,10 +27,10 @@ if os.path.isfile(dotenv_file):
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-n+626#f!6^j-*mqrt!-+r+9a2mvb=5bx^8+&!awfn$_9$(cfq'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 ALLOWED_HOSTS = ['127.0.0.1', 'cn-north-finchley.herokuapp.com']
 
@@ -190,5 +190,5 @@ EMAIL_HOST_USER = os.environ.get('CN_EMAIL')
 EMAIL_HOST_PASSWORD = os.environ.get('CN_PASSWORD')
 
 django_heroku.settings(locals())
-# options = DATABASES['default'].get('OPTIONS', {})
-# options.pop('sslmode', None)
+options = DATABASES['default'].get('OPTIONS', {})
+options.pop('sslmode', None)
