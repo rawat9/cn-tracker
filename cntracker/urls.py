@@ -19,8 +19,8 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 # 2FA
-# from django_otp.admin import OTPAdminSite
-# admin.site.__class__ = OTPAdminSite
+from django_otp.admin import OTPAdminSite
+admin.site.__class__ = OTPAdminSite
 
 admin.site.site_header = "CODE NINJAS - North Finchley"
 admin.site.index_title = "Admin Panel"
