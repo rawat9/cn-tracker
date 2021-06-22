@@ -4,7 +4,7 @@ from . import views
 
 urlpatterns = [
     path('', views.scorecard, name="scorecard"),
-    path('dashboard/<int:pk>', views.dashboard, name="dashboard"),
+    path('dashboard/<int:pk>/', views.dashboard, name="dashboard"),
     path('scratch/<int:pk>/', views.scratch, name="scratch"),
     path('circuits/<int:pk>/', views.circuits, name="circuits"),
     path('artek/<int:pk>/', views.artek, name="artek"),
