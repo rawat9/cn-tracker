@@ -13,7 +13,6 @@ def activity_form(request):
         project_id = request.POST['project_id']
         rating = request.POST['rating']
         sensei_name = request.POST['sensei_name']
-        completion_percentage = request.POST['completion_percentage']
         comment = request.POST['comment']
 
     activity_form = Activity(user_id=User.objects.get(id=user_id), 
@@ -21,7 +20,6 @@ def activity_form(request):
                             project_id=Project.objects.get(project_id=project_id), 
                             rating=rating, 
                             sensei_name=sensei_name, 
-                            completion_percentage=completion_percentage, 
                             comment=comment)
     activity_form.save()
     return redirect('scorecard')
