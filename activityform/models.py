@@ -18,7 +18,7 @@ class Activity(models.Model):
 		('Simran Tulsiani', 'Simran Tulsiani'),
 		('Ilham Esse', 'Ilham Esse'),
 		('Istabraq Ahmed', 'Istrabraq Ahmed'),
-		('Manali Ballewar', 'Manali Ballewar')
+		('Manali Ballewar', 'Manali Ballewar'),
 		('Polly Thomas', 'Polly Thomas')
 	)
 

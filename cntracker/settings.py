@@ -40,7 +40,11 @@ INSTALLED_APPS = [
     'activityform.apps.ActivityformConfig',
     'authentication.apps.AuthenticationConfig',
     'webpages.apps.WebpagesConfig',
-    'djangocms_admin_style',
+
+    # Admin Panel
+    'admin_interface',
+    'colorfield',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -51,6 +55,12 @@ INSTALLED_APPS = [
     'django_otp',
     'django_otp.plugins.otp_totp',
 ]
+
+# only if django version >= 3.0
+# django-admin-interface 
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+SILENCED_SYSTEM_CHECKS = ['security.W019']
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
