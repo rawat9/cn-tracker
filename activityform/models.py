@@ -19,6 +19,7 @@ class Activity(models.Model):
 		('Ilham Esse', 'Ilham Esse'),
 		('Istabraq Ahmed', 'Istrabraq Ahmed'),
 		('Manali Ballewar', 'Manali Ballewar')
+		('Polly Thomas', 'Polly Thomas')
 	)
 
 	user_id = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
