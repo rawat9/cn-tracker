@@ -62,7 +62,7 @@ def scorecard(request):
                     FROM 
                     (SELECT first_name , last_name , topic_id_id , 
                     CASE 
-                        WHEN topic_id_id=1 THEN count(project_id_id) else 0 END as s,
+                        WHEN topic_id_id=1 OR topic_id_id=7 OR topic_id_id=8 THEN count(project_id_id) else 0 END as s,
                     CASE 
                         WHEN topic_id_id=2 THEN count(project_id_id) else 0 END as c,
                     CASE 
