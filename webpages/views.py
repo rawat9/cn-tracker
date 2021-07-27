@@ -58,7 +58,7 @@ def scorecard(request):
     topics = Topic.objects.all()
 
     cursor = connection.cursor()
-    cursor.execute('''SELECT x.first_name, x.last_name, sum(s) as scratch , sum(c) as Circuits,sum(r) as Robotics,Sum(l) as Lego, (sum(s)+sum(c)+sum(r)+sum(l)) as total 
+    cursor.execute('''SELECT x.first_name, x.last_name, sum(s) as scratch , sum(c) as Circuits,sum(r) as Robotics,Sum(l) as Lego, sum(m) as Minecraft, (sum(s)+sum(c)+sum(r)+sum(l)) as total 
                     FROM 
                     (SELECT first_name , last_name , topic_id_id , 
                     CASE 
@@ -68,7 +68,9 @@ def scorecard(request):
                     CASE 
                         WHEN topic_id_id=3 THEN count(project_id_id) else 0 END as r,
                     CASE 
-                        WHEN topic_id_id=4 THEN count(project_id_id) else 0 END as l 
+                        WHEN topic_id_id=4 THEN count(project_id_id) else 0 END as l,
+                    CASE
+                        WHEN topic_id_id=9 THEN count(project_id_id) else 0 END as m
                         FROM activityform_activity a 
                         INNER JOIN auth_user au on au.id = a.user_id_id 
                         GROUP by 1,2,3)x 
