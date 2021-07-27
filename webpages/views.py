@@ -58,7 +58,7 @@ def scorecard(request):
     topics = Topic.objects.all()
 
     cursor = connection.cursor()
-    cursor.execute('''SELECT x.first_name, x.last_name, sum(s) as scratch , sum(c) as Circuits,sum(r) as Robotics,Sum(l) as Lego, sum(m) as Minecraft, (sum(s)+sum(c)+sum(r)+sum(l)) as total 
+    cursor.execute('''SELECT x.first_name, x.last_name, sum(s) as scratch , sum(c) as Circuits,sum(r) as Robotics,Sum(l) as Lego, sum(m) as Minecraft, (sum(s)+sum(c)+sum(r)+sum(l)+sum(m)) as total 
                     FROM 
                     (SELECT first_name , last_name , topic_id_id , 
                     CASE 
