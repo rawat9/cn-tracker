@@ -12,7 +12,7 @@
         <h1 class="h3 mb-4 text-gray-800">LEGO</h1>
         
         <div class="row">
-            {% for prj in projects %}
+            {% for student in students %}
             <div class="col-md-4">
                 <!-- LEGO Cards -->
                 <div class="card p-3 mb-2">
@@ -20,18 +20,27 @@
                         <div class="d-flex flex-row align-items-center">
                             <div class="icon"> <i class="bx bxl-mailchimp"></i> </div>
                             <div class="ms-2 c-details">
-                                <h6 class="mb-0">LEGO</h6> 
+                                <style>
+                                    .checked {
+                                    color: orange;
+                                    }
+                                </style>
+                                {% if student.rating == 1 %}
+                                <span class="fas fa-star checked"></span><span class="fas fa-star"></span><span class="fas fa-star"></span>
+                                {% elif student.rating == 2 %}
+                                <span class="fas fa-star checked"></span><span class="fas fa-star checked"></span><span class="fas fa-star"></span>
+                                {% elif student.rating == 3 %}
+                                <span class="fas fa-star checked"></span><span class="fas fa-star checked"></span><span class="fas fa-star checked"></span>
+                                {% endif %}
                             </div>
                         </div>
-                        <div class="badge"> <span>{{ prj.level }}</span> </div>
+                        <div class="badge"> <span>{{ student.project_id.level }}</span> </div>
                     </div>
                     <div class="mt-5">
-                        <a style="cursor: pointer;" data-toggle="modal" data-target="#activitiesModal">
-                        <h3 class="heading">{{ prj.project_name }}</h3>
-                        </a>
+                        <h3 class="heading">{{ student.project_id.project_name }}</h3>
                         <div class="mt-5">
                             <div class="progress">
-                                <div class="progress-bar bg-primary" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">25%</div>
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: {{ student.completion_percentage }}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">{{ student.completion_percentage }}%</div>
                             </div>
                         </div>
                     </div>

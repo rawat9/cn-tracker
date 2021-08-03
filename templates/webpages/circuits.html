@@ -13,7 +13,7 @@
         <div class="row">
             {% for student in students %}
             <div class="col-md-4">
-                <!-- Scratch Cards -->
+                <!-- Circuits Cards -->
                 <div class="card p-3 mb-2">
                     <div class="d-flex justify-content-between">
                         <div class="d-flex flex-row align-items-center">
@@ -35,9 +35,7 @@
                         <div class="badge"> <span>{{ student.project_id.level }}</span> </div>
                     </div>
                     <div class="mt-5"> 
-                        <!-- <a style="cursor: pointer;" data-toggle="modal" data-target="#scratchModal"> -->
                         <h3 class="heading">{{ student.project_id.project_name }}</h3>
-                        <!-- </a> -->
                         <div class="mt-5">
                             <div class="progress">
                                 <div class="progress-bar bg-info" role="progressbar" style="width: {{ student.completion_percentage }}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">{{ student.completion_percentage }}%</div>
