@@ -52,8 +52,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'import_export',
-    'django_otp',
-    'django_otp.plugins.otp_totp',
 ]
 
 # only if django version >= 3.0
