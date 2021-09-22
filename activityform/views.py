@@ -26,6 +26,18 @@ def activity_form(request):
                             rating=rating, 
                             sensei_name=sensei_name, 
                             comment=comment)
-            activity_form.save()
-            messages.success(request, 'Record Saved Successfully!')
-            return redirect('scorecard')
+
+            if not user_id:
+                messages.error(request, 'Ninja name required!')
+            elif not topic_id:
+                messages.error(request, 'Topic field required!')
+            elif not project_id:
+                messages.error(request, 'Project field required!')
+            elif not rating:
+                messages.error(request, 'Rating field required!')
+            elif not sensei_name:
+                messages.error(request, 'Sensei name required!')
+            else:              
+                activity_form.save()
+                messages.success(request, 'Record Saved Successfully!')
+                return redirect('scorecard')

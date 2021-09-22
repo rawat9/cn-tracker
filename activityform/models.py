@@ -8,7 +8,6 @@ from webpages.models import Project, Topic
 class Activity(models.Model):
 	SENSEIS = (
 		('Anurag Rawat', 'Anurag Rawat'),
-		('Leonie Dennett', 'Leonie Dennett'),
 		('Elena Bardho', 'Elena Bardho'),
 		('Goundo Sidibe', 'Goundo Sidibe'),
 		('Siddhant Dalal', 'Siddhant Dalal'),
@@ -18,7 +17,6 @@ class Activity(models.Model):
 		('Simran Tulsiani', 'Simran Tulsiani'),
 		('Ilham Esse', 'Ilham Esse'),
 		('Istabraq Ahmed', 'Istrabraq Ahmed'),
-		('Manali Ballewar', 'Manali Ballewar'),
 		('Polly Thomas', 'Polly Thomas')
 	)
 
