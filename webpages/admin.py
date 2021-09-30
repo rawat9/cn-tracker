@@ -1,5 +1,5 @@
-from .resources import ProjectResource
 from django.contrib import admin
+from .resources import ProjectResource
 from import_export.admin import ImportExportModelAdmin
 from .models import Project, Topic
 

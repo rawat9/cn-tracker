@@ -1,12 +1,11 @@
 from django.contrib import admin
-from django.contrib.auth import models
+from .resources import ActivityResource
+from import_export.admin import ImportExportModelAdmin
 from .models import Activity
 
+@admin.register(Activity)
+class ActivityModel(ImportExportModelAdmin):
+    resource_class = ActivityResource
 
-class ActivityModel(admin.ModelAdmin):
-    object_name = 'Activity'
     list_display = ('id', 'user_id', 'project_id', 'topic_id')
     list_filter = ('date_created', 'topic_id', 'user_id')
-
-
-admin.site.register(Activity, ActivityModel)
