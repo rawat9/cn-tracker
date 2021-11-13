@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.deletion import DO_NOTHING, SET_NULL
 from webpages.models import Project, Topic
 
 # Create your models here.
@@ -8,8 +7,6 @@ from webpages.models import Project, Topic
 class Activity(models.Model):
 	SENSEIS = (
 		('Anurag Rawat', 'Anurag Rawat'),
-		('Elena Bardho', 'Elena Bardho'),
-		('Goundo Sidibe', 'Goundo Sidibe'),
 		('Siddhant Dalal', 'Siddhant Dalal'),
 		('Manan Adhvaryu', 'Manan Adharvyu'),
 		('Marta Garcia', 'Marta Garcia'),	
