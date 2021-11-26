@@ -16,7 +16,7 @@ def activity_form(request):
         sensei_name = request.POST['sensei_name']
         comment = request.POST['comment']
 
-        if Activity.objects.filter(user_id=user_id).filter(project_id=project_id).exists():
+        if Activity.objects.exclude(project_id=1636, project_id=1643).filter(user_id=user_id).filter(project_id=project_id).exists():
             messages.warning(request, 'Record already exists')
             return redirect('scorecard')
         else:
