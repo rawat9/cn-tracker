@@ -14,7 +14,8 @@ class Activity(models.Model):
 		('Simran Tulsiani', 'Simran Tulsiani'),
 		('Ilham Esse', 'Ilham Esse'),
 		('Istabraq Ahmed', 'Istrabraq Ahmed'),
-		('Polly Thomas', 'Polly Thomas')
+		('Kyan Ung', 'Kyan Ung'),
+		('Ayman El Behri', 'Ayman El Behri'),
 	)
 
 	user_id = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
@@ -24,7 +25,7 @@ class Activity(models.Model):
 	sensei_name = models.CharField(choices=SENSEIS, max_length=255, null=True)
 	completion_percentage = models.IntegerField(default=100)
 	comment = models.TextField(blank=True)
-	date_created = models.DateTimeField(auto_now_add=True, null=True)
+	date_created = models.DateTimeField(null=True)
 
 	class Meta:
 		verbose_name_plural = "Activities"
