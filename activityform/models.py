@@ -25,7 +25,7 @@ class Activity(models.Model):
 	sensei_name = models.CharField(choices=SENSEIS, max_length=255, null=True)
 	completion_percentage = models.IntegerField(default=100)
 	comment = models.TextField(blank=True)
-	date_created = models.DateTimeField(null=True)
+	date_created = models.DateField(null=True)
 
 	class Meta:
 		verbose_name_plural = "Activities"
