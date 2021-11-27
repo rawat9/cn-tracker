@@ -13,10 +13,11 @@ def activity_form(request):
         topic_id = request.POST['topic_id']
         project_id = request.POST['project_id']
         rating = request.POST['rating']
+        date_created = request.POST['date_created']
         sensei_name = request.POST['sensei_name']
         comment = request.POST['comment']
 
-        if Activity.objects.exclude(project_id=1636, project_id=1643).filter(user_id=user_id).filter(project_id=project_id).exists():
+        if Activity.objects.exclude(project_id=1636).exclude(project_id=1643).filter(user_id=user_id).filter(project_id=project_id).exists():
             messages.warning(request, 'Record already exists')
             return redirect('scorecard')
         else:
@@ -24,7 +25,8 @@ def activity_form(request):
                             topic_id=Topic.objects.get(topic_id=topic_id),
                             project_id=Project.objects.get(project_id=project_id), 
                             rating=rating, 
-                            sensei_name=sensei_name, 
+                            sensei_name=sensei_name,
+                            date_created=date_created, 
                             comment=comment)
 
             activity_form.save()
