@@ -166,7 +166,7 @@
     </div>
     
     <!-- Activity Modal-Form -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -182,7 +182,7 @@
                         <div class="col-sm-12 mb-3 mb-sm-0">
                             <select name="user_id" class="form-control" required>
                                 {% for user in users %}
-                                {% if not user.is_superuser %}
+                                {% if not user.is_superuser and user.is_active %}
                                     <option selected disabled hidden>Ninja Name</option>
                                     <option value="{{ user.id }}">{{ user.first_name }} {{ user.last_name}}</option>
                                 {% endif %}
@@ -210,7 +210,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-12 mb-3 mb-sm-0"> 
-                            <label style="font-size: small;">Graded by: </label>
+                            <label style="font-size: small;">Graded by:</label>
                             <select name="sensei_name" class="form-control" required>
                                 <option selected disabled hidden>Sensei Name</option>
                                 {% for user in users %}
@@ -222,7 +222,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-sm-12 mb-3 mb-sm-0">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
                             <select name="rating" class="form-control" required>
                                 <option selected disabled hidden>Rating</option>
                                 <option value=1>1</option>
@@ -230,12 +230,15 @@
                                 <option value=3>3</option>
                             </select>
                         </div>
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <input class="form-control" type="date" name="date_created" required>
+                        </div>
                         <!-- <div class="col-sm-6 mb-3 mb-sm-0">
                             <input name="completion_percentage" type="number" max="100" class="form-control" placeholder="% completed" required>
                         </div> -->
                     </div>
                     <div class="form-group">
-                        <textarea name="comment" class="form-control" rows="4" placeholder="Comment"></textarea>
+                        <textarea name="comment" class="form-control" rows="4" placeholder="Comment" required></textarea>
                     </div>
                     <br>
                     <button type="submit" class="btn btn-primary btn-user btn-block">
