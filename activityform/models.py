@@ -8,7 +8,6 @@ class Activity(models.Model):
 	SENSEIS = (
 		('Anurag Rawat', 'Anurag Rawat'),
 		('Siddhant Dalal', 'Siddhant Dalal'),
-		('Manan Adhvaryu', 'Manan Adharvyu'),
 		('Marta Garcia', 'Marta Garcia'),	
 		('Omar Veiga', 'Omar Veiga'), 
 		('Simran Tulsiani', 'Simran Tulsiani'),
@@ -16,6 +15,7 @@ class Activity(models.Model):
 		('Istabraq Ahmed', 'Istrabraq Ahmed'),
 		('Kyan Ung', 'Kyan Ung'),
 		('Ayman El Behri', 'Ayman El Behri'),
+		('Amber Barakat', 'Amber Barakat'),
 	)
 
 	user_id = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
