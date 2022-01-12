@@ -23,8 +23,9 @@ class Activity(models.Model):
 	project_id = models.ForeignKey(Project, null=True, on_delete=models.SET_NULL)
 	rating = models.IntegerField(null=True)
 	sensei_name = models.CharField(choices=SENSEIS, max_length=255, null=True)
-	completion_percentage = models.IntegerField(default=100)
-	comment = models.TextField(blank=True)
+	is_completed = models.BooleanField(default=True)
+	ninja_comment = models.TextField(blank=True)
+	sensei_comment = models.TextField(blank=True)
 	date_created = models.DateField(null=True)
 
 	class Meta:

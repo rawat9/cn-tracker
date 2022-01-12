@@ -12,22 +12,20 @@ def activity_form(request):
         user_id = request.POST['user_id']
         topic_id = request.POST['topic_id']
         project_id = request.POST['project_id']
-        rating = request.POST['rating']
         date_created = request.POST['date_created']
-        sensei_name = request.POST['sensei_name']
-        comment = request.POST['comment']
+        ninja_comment = request.POST['comment']
+        is_completed = request.POST['comment']
 
         activity_form = Activity(user_id=User.objects.get(id=user_id), 
                         topic_id=Topic.objects.get(topic_id=topic_id),
                         project_id=Project.objects.get(project_id=project_id), 
-                        rating=rating, 
-                        sensei_name=sensei_name,
                         date_created=date_created, 
-                        comment=comment)
+                        ninja_comment=ninja_comment,
+                        is_completed=is_completed)
 
         activity_form.save()
         messages.success(request, 'Record Saved Successfully!')
-        return redirect('scorecard')
+        return redirect('act')
 
 def act(request):
     users = User.objects.all().exclude(id=4).exclude(id=6).order_by('first_name')

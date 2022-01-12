@@ -85,16 +85,11 @@ def scorecard(request):
     }
     return render(request, 'webpages/scorecard.html', data)
 
-def scratch(request, pk):  
-    students = Activity.objects.filter(user_id=pk).order_by('-date_created').filter(topic_id=1)
-    data = {
-        'students': students,
-    }
-    return render(request, 'webpages/scratch.html', data)
-
+@login_required(login_url='login')
 def dash(request):
-    return render(request, 'home.html')
+    return render(request, 'index.html')
 
+@login_required(login_url='login')
 def users(request):
     users = User.objects.all().exclude(id=4).exclude(id=6).order_by('first_name')
     data = {

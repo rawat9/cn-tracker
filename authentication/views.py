@@ -54,7 +54,7 @@ def register(request):
             messages.error(request, 'Password do not match')
             return redirect('register')
 
-    return render(request, 'authentication/signup.html')
+    return render(request, 'authentication/register.html')
 
 def logout_user(request):
     logout(request)
