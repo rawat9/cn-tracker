@@ -6,7 +6,6 @@ from .decorators import unauthenticated_user
 
 # Create your views here.
 
-@unauthenticated_user
 def login(request):
     if request.method == 'POST':
 
@@ -18,7 +17,7 @@ def login(request):
         if user is not None:
             auth.login(request, user)
             messages.success(request, 'Logged in successfully')
-            return redirect('/dashboard/{}'.format(request.user.id))
+            return redirect('users')
         else:
             messages.warning(request, 'Invalid credentials')
             return redirect('login')
@@ -55,7 +54,7 @@ def register(request):
             messages.error(request, 'Password do not match')
             return redirect('register')
 
-    return render(request, 'authentication/register.html')
+    return render(request, 'authentication/signup.html')
 
 def logout_user(request):
     logout(request)

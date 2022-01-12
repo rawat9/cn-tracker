@@ -1,0 +1,148 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+    <title>Users</title>
+    
+	<!-- Simple bar CSS -->
+  <link rel="stylesheet" href="{% static 'css/simplebar.css' %}">
+  <!-- Fonts CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <!-- Icons CSS -->
+  <link rel="stylesheet" href="{% static 'css/feather.css' %}">
+  <link rel="stylesheet" href="{% static 'css/dataTables.bootstrap4.css' %}">
+  <!-- Date Range Picker CSS -->
+  <link rel="stylesheet" href="{% static 'css/daterangepicker.css' %}">
+  <!-- App CSS -->
+  <link rel="stylesheet" href="{% static 'css/app-light.css' %}" id="lightTheme">
+
+  </head>
+  <body class="vertical  light  ">
+    <div class="wrapper">
+		{% include 'includes/navbar.html' %}
+
+		{% include 'includes/sidebar.html' %}
+      <main role="main" class="main-content">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col-12">
+              <h2 class="mb-2 page-title">Users</h2>
+              <div class="row my-4">
+                <!-- Small table -->
+                <div class="col-md-12">
+                  <div class="card shadow">
+                    <div class="card-body">
+                      <div class="col ml-auto">
+                        <div class="dropdown float-right">
+                          <button class="btn btn-sm btn-secondary" type="button" id="export" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Export</button>
+                        </div>
+                      </div>
+                      <!-- table -->
+                      <table class="table datatables" id="dataTable-1">
+                        <thead>
+                          <tr>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>Dojo</th>
+                            <th>Active</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        {% for user in users %}
+                          {% if not user.is_superuser %}
+                            <tr>
+                                <td>{{ user.first_name }} {{ user.last_name }}</td>
+                                <td>{{ user.username }}</td>
+                                <td>{{ user.first_name|lower }}.{{ user.last_name|lower }}</td>
+                                <td>{{ user.is_active }}</td>
+                            </tr>
+                          {% endif %}
+                        {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div> <!-- simple table -->
+              </div> <!-- end section -->
+            </div> <!-- .col-12 -->
+          </div> <!-- .row -->
+        </div> <!-- .container-fluid -->
+        
+        <div class="modal fade modal-shortcut modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="defaultModalLabel">Quick Links</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body px-5">
+                <div class="row align-items-center">
+                  <div class="col-6 text-center">
+                    <a href="https://cn-north-finchley.herokuapp.com/admin/">
+                    <div class="squircle bg-success justify-content-center">
+                        <i class="fe fe-cpu fe-32 align-self-center text-white"></i>
+                      </div>
+                    </a>
+                    <p>Admin Panel</p>
+                  </div>
+                  <div class="col-6 text-center">
+                    <div class="squircle bg-primary justify-content-center">
+                      <i class="fe fe-activity fe-32 align-self-center text-white"></i>
+                    </div>
+                    <p>Activity</p>
+                  </div>
+                </div>
+                <div class="row align-items-center">
+                  <div class="col-6 text-center">
+                    <div class="squircle bg-primary justify-content-center">
+                      <i class="fe fe-users fe-32 align-self-center text-white"></i>
+                    </div>
+                    <p>Users</p>
+                  </div>
+                  <div class="col-6 text-center">
+                    <div class="squircle bg-primary justify-content-center">
+                      <i class="fe fe-settings fe-32 align-self-center text-white"></i>
+                    </div>
+                    <p>Settings</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </main> <!-- main -->
+    </div> <!-- .wrapper -->
+	<script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/popper.min.js' %}"></script>
+  <script src="{% static 'js/moment.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/simplebar.min.js' %}"></script>
+  <script src="{% static 'js/daterangepicker.js' %}"></script>
+  <script src="{% static 'js/jquery.stickOnScroll.js' %}"></script>
+  <script src="{% static 'js/tinycolor-min.js' %}"}></script>
+  <script src="{% static 'js/config.js' %}"></script>
+  <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
+
+  <script>
+    $('#dataTable-1').DataTable(
+    {
+      autoWidth: true,
+      "lengthMenu": [
+        [20, 30, 70, -1],
+        [20, 30, 70, "All"]
+      ],
+    });
+  </script>
+
+  <script src="{% static 'js/apps.js"></script>
+</html>

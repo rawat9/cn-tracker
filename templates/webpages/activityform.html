@@ -1,0 +1,252 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+    <title>CN | Activity Form</title>
+
+    <!-- Simple bar CSS -->
+    <link rel="stylesheet" href="{% static 'css/simplebar.css' %}">
+
+    <!-- Fonts CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <!-- Icons CSS -->
+    <link rel="stylesheet" href="{% static 'css/feather.css' %}">
+    <link rel="stylesheet" href="{% static 'css/select2.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dropzone.css' %}">
+    <link rel="stylesheet" href="{% static 'css/uppy.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery.steps.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery.timepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'css/quill.snow.css' %}">
+
+    <!-- Date Range Picker CSS -->
+    <link rel="stylesheet" href="{% static 'css/daterangepicker.css' %}">
+
+    <!-- App CSS -->
+    <link rel="stylesheet" href="{% static 'css/app-light.css' %}" id="lightTheme">
+
+  </head>
+  <body class="horizontal  light  ">
+    <div class="wrapper">
+      <main role="main" class="main-content">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col-6">
+              <h1 class="page-title">Activity Form</h1>
+              <br>
+              <div class="card shadow mb-4">
+                <div class="card-body">
+                  <form method="post" id="activityForm" class="needs-validation" data-projects-url="{% url 'ajax_load_projects' %}" novalidate>
+                    <div class="form-row">
+                      <div class="col-md-12 mb-3">
+                        <label for="ninja">Name</label>
+                        <select class="form-control select2" id="ninja" required>
+                          <option selected disabled hidden></option>
+                          {% for user in users %}
+                            {% if not user.is_superuser and user.is_active %}
+                              <option value="{{ user.id }}">{{ user.first_name }} {{ user.last_name}}</option>
+                            {% endif %}
+                          {% endfor %}
+                        </select>
+                        <div class="valid-feedback"> Looks good! </div>
+                      </div>
+                    </div> <!-- /.form-row -->
+                    <div class="form-row">
+                      <div class="col-md-6 mb-3">
+                        <label for="topicID">Topic</label>
+                        <select id="topic" class="form-control select2" required>
+                          <option selected disabled hidden></option>
+                          {% for topic in topics %}
+                            <option value="{{ topic.topic_id }}">{{ topic.topic_name }}</option>
+                          {% endfor %}
+                        </select>
+                        <div class="valid-feedback"> Looks good! </div>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <label for="projectID">Project</label>
+                        <select id="projects" class="form-control select2" required>
+                        </select>
+                        <div class="valid-feedback"> Looks good! </div>
+                      </div>
+                    </div> <!-- /.form-row -->
+                   
+                    <div class="form-row">
+                      <div class="col-md-12 mb-3">
+                        <label for="date-input">Date</label>
+                        <div class="input-group">
+                          <input type="date" class="form-control" id="date-input" required>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="form-group mb-3">
+                      <label for="message">Tell us what you did...</label>
+                      <textarea class="form-control" id="message" required="" rows="4"></textarea>
+                      <div class="invalid-feedback"> Please enter the comments in the textarea. </div>
+                    </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="customControlValidation16">
+                      <label class="custom-control-label" for="customControlValidation16"> Completed? </label>
+                    </div>
+                    <button class="btn btn-block btn-primary" type="submit">Submit</button>
+                  </form>
+                </div> <!-- /.card-body -->
+              </div>
+            
+            </div> <!-- .col-12 -->
+          </div> <!-- .row -->
+        </div> <!-- .container-fluid -->
+        
+      </main> <!-- main -->
+    </div> <!-- .wrapper -->
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/moment.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/simplebar.min.js' %}"></script>
+    <!-- <script src="{% static 'js/daterangepicker.js' %}"></script> -->
+    <script src="{% static 'js/jquery.stickOnScroll.js' %}"></script>
+    <script src="{% static 'js/tinycolor-min.js' %}"></script>
+    <script src="{% static 'js/config.js' %}"></script>
+    <script src="{% static 'js/gauge.min.js' %}"></script>
+    <script src="{% static 'js/jquery.sparkline.min.js' %}"></script>
+    <script src="{% static 'js/jquery.mask.min.js' %}"></script>
+    <script src="{% static 'js/select2.min.js' %}"></script>
+    <script src="{% static 'js/jquery.steps.min.js' %}"></script>
+    <script src="{% static 'js/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'js/jquery.timepicker.js' %}"></script>
+
+    <script>
+      $("#topic").change(function() {
+        var url = $("#activityForm").attr("data-projects-url");
+        var topicID = $(this).val();
+
+        $.ajax({
+          url: url,
+          data: {
+            'topic_id': topicID
+          },
+          success: function(data) {
+            $("#projects").html(data);
+          }
+        });
+      })
+    </script>
+
+    <script>
+      $('.select2').select2(
+      {
+        theme: 'bootstrap4',
+      });
+      $('.select2-multi').select2(
+      {
+        multiple: true,
+        theme: 'bootstrap4',
+      });
+      $('.drgpicker').daterangepicker(
+      {
+        singleDatePicker: true,
+        timePicker: false,
+        showDropdowns: true,
+        locale:
+        {
+          format: 'MM/DD/YYYY'
+        }
+      });
+      $('.time-input').timepicker(
+      {
+        'scrollDefault': 'now',
+        'zindex': '9999' /* fix modal open */
+      });
+      /** date range picker */
+      if ($('.datetimes').length)
+      {
+        $('.datetimes').daterangepicker(
+        {
+          timePicker: true,
+          startDate: moment().startOf('hour'),
+          endDate: moment().startOf('hour').add(32, 'hour'),
+          locale:
+          {
+            format: 'M/DD hh:mm A'
+          }
+        });
+      }
+      var start = moment().subtract(29, 'days');
+      var end = moment();
+
+      cb(start, end);
+      $('.input-placeholder').mask("00/00/0000",
+      {
+        placeholder: "__/__/____"
+      });
+      $('.input-zip').mask('00000-000',
+      {
+        placeholder: "____-___"
+      });
+      $('.input-money').mask("#.##0,00",
+      {
+        reverse: true
+      });
+      $('.input-phoneus').mask('(000) 000-0000');
+      $('.input-mixed').mask('AAA 000-S0S');
+      $('.input-ip').mask('0ZZ.0ZZ.0ZZ.0ZZ',
+      {
+        translation:
+        {
+          'Z':
+          {
+            pattern: /[0-9]/,
+            optional: true
+          }
+        },
+        placeholder: "___.___.___.___"
+      });
+      
+      
+      // Example starter JavaScript for disabling form submissions if there are invalid fields
+      (function()
+      {
+        'use strict';
+        window.addEventListener('load', function()
+        {
+          // Fetch all the forms we want to apply custom Bootstrap validation styles to
+          var forms = document.getElementsByClassName('needs-validation');
+          // Loop over them and prevent submission
+          var validation = Array.prototype.filter.call(forms, function(form)
+          {
+            form.addEventListener('submit', function(event)
+            {
+              if (form.checkValidity() === false)
+              {
+                event.preventDefault();
+                event.stopPropagation();
+              }
+              form.classList.add('was-validated');
+            }, false);
+          });
+        }, false);
+      })();
+    </script>
+
+    <script src="{% static 'js/apps.js' %}"></script>
+
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag()
+      {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'UA-56159088-1');
+    </script>
+  </body>
+</html>

@@ -92,30 +92,20 @@ def scratch(request, pk):
     }
     return render(request, 'webpages/scratch.html', data)
 
-def circuits(request, pk):
-    students = Activity.objects.filter(user_id=pk).order_by('-date_created').filter(topic_id=2)
-    data = {
-        'students': students,
-    }
-    return render(request, 'webpages/circuits.html', data)
+def dash(request):
+    return render(request, 'home.html')
 
-def artek(request, pk):
-    students = Activity.objects.filter(user_id=pk).order_by('-date_created').filter(topic_id=3)
+def users(request):
+    users = User.objects.all().exclude(id=4).exclude(id=6).order_by('first_name')
     data = {
-        'students': students,
+        'users': users,
     }
-    return render(request, 'webpages/artek.html', data)
+    return render(request, 'webpages/users.html', data)
 
-def lego(request, pk):
-    students = Activity.objects.filter(user_id=pk).order_by('-date_created').filter(topic_id=4)
-    data = {
-        'students': students,
-    }
-    return render(request, 'webpages/lego.html', data)
+def badges(request):
+    return render(request, 'webpages/badges.html')
 
-def typing(request, pk):
-    students = Activity.objects.filter(user_id=pk).order_by('-date_created').filter(topic_id=5)
-    data = {
-        'students': students,
-    }
-    return render(request, 'webpages/typing.html', data)
+def load_projects(request):
+    topic_id = request.GET.get('topic_id')
+    projects = Project.objects.filter(topic_id=topic_id)
+    return render(request, 'options.html', {'projects': projects})

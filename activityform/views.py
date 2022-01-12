@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from .models import Activity
 from webpages.models import Project, Topic
 
@@ -28,3 +28,20 @@ def activity_form(request):
         activity_form.save()
         messages.success(request, 'Record Saved Successfully!')
         return redirect('scorecard')
+
+def act(request):
+    users = User.objects.all().exclude(id=4).exclude(id=6).order_by('first_name')
+    projects = Project.objects.all()
+    topics = Topic.objects.all()
+
+    data = {
+        'users': users,
+        'projects': projects,
+        'topics': topics,
+    }
+    return render(request, 'webpages/activityform.html', data)
+
+def load_projects(request):
+    topic_id = request.GET.get('topic_id')
+    projects = Project.objects.filter(topic_id=topic_id)
+    return render(request, 'webpages/options.html', {'projects': projects})
