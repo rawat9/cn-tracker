@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from .models import Activity
 from webpages.models import Project, Topic
@@ -27,6 +28,7 @@ def activity_form(request):
         messages.success(request, 'Record Saved Successfully!')
         return redirect('activity')
 
+@login_required(login_url='login')
 def act(request):
     users = User.objects.all().exclude(id=4).exclude(id=6).order_by('first_name')
     projects = Project.objects.all().order_by('topic_id')
