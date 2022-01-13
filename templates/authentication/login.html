@@ -24,11 +24,12 @@
 
   </head>
   <body class="light ">
+
     <div class="wrapper">
-    {% include 'messages.html' %} 
+      {% include 'messages.html' %} 
       <div class="container-fluid vh-100">
         <div class="row align-items-center h-100">
-          <form method="post" action="{% url 'login' %}" class="col-lg-3 col-md-4 col-10 mx-auto text-center">
+          <form method="POST" action="{% url 'login' %}" class="col-lg-3 col-md-4 col-10 mx-auto text-center">
             {% csrf_token %}
             <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="">
               <img src="{% static 'assets/images/CNlogo.png' %}" width="200" alt="">

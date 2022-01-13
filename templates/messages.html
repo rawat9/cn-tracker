@@ -1,10 +1,22 @@
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	<script>
-		{% for message in messages %}
-			swal({
-				title: '{{ message }}',
-				icon: '{{ message.tags }}',
-				timer: 2000
-			});		
-		{% endfor %}
-	</script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+	const Toast = Swal.mixin({
+	toast: true,
+	position: 'top-end',
+	showConfirmButton: false,
+	timer: 2000,
+	timerProgressBar: true,
+	didOpen: (toast) => {
+		toast.addEventListener('mouseenter', Swal.stopTimer)
+		toast.addEventListener('mouseleave', Swal.resumeTimer)
+	}
+	})
+
+	{% for message in messages %}
+	Toast.fire({
+		icon: '{{ message.tags }}',
+		title: '{{ message }}'
+	})
+	{% endfor %}
+
+</script>

@@ -35,6 +35,7 @@
   <body class="horizontal  light  ">
     <div class="wrapper">
       <main role="main" class="main-content">
+        {% include 'messages.html' %}
         <div class="container-fluid">
           <div class="row justify-content-center">
             <div class="col-6">
@@ -103,16 +104,23 @@
             </div> <!-- .col-12 -->
           </div> <!-- .row -->
         </div> <!-- .container-fluid -->
-        
       </main> <!-- main -->
     </div> <!-- .wrapper -->
+
+    <footer id="sticky-footer" class="flex-shrink-0 py-4 bg-white text-black">
+      <div class="container text-center">
+        <i class="fe fe-alert-circle fe-9 text-danger"></i>
+        <small>
+          Please show your work to the Sensei before submitting!
+        </small>
+      </div>
+    </footer>
 
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/popper.min.js' %}"></script>
     <script src="{% static 'js/moment.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/simplebar.min.js' %}"></script>
-    <!-- <script src="{% static 'js/daterangepicker.js' %}"></script> -->
     <script src="{% static 'js/jquery.stickOnScroll.js' %}"></script>
     <script src="{% static 'js/tinycolor-min.js' %}"></script>
     <script src="{% static 'js/config.js' %}"></script>
@@ -140,7 +148,7 @@
         });
       })
     </script>
-
+    
     <script>
       $('.select2').select2(
       {

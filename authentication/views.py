@@ -6,6 +6,7 @@ from .decorators import unauthenticated_user
 
 # Create your views here.
 
+@unauthenticated_user
 def login(request):
     if request.method == 'POST':
 
@@ -58,4 +59,5 @@ def register(request):
 
 def logout_user(request):
     logout(request)
+    messages.success(request, 'Logout successfull')
     return redirect('login')

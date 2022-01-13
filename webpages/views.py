@@ -9,48 +9,6 @@ from django.db import connection
 
 
 @login_required(login_url='login')
-@ninja_only
-def dashboard(request, pk):
-
-    total = Project.objects.all().count()
-
-    # Completed Projects - count()    
-    scratch_completed = Activity.objects.filter(user_id=pk).filter(topic_id=1).count()
-    circuits_completed = Activity.objects.filter(user_id=pk).filter(topic_id=2).count()
-    robotics_completed = Activity.objects.filter(user_id=pk).filter(topic_id=3).count()
-    lego_completed = Activity.objects.filter(user_id=pk).filter(topic_id=4).count()
-    typing_completed = Activity.objects.filter(user_id=pk).filter(topic_id=5).count()
-
-    scratch_total = Project.objects.filter(topic_id=1).count()
-    circuits_total = Project.objects.filter(topic_id=2).count()
-    robotics_total = Project.objects.filter(topic_id=3).count()
-    lego_total = Project.objects.filter(topic_id=4).count()
-    typing_total = Project.objects.filter(topic_id=5).count()
-
-    # Completion Percentage 
-    scratch_completion = int((scratch_completed / scratch_total) * 100)
-    circuits_completion = int((circuits_completed / 10) * 100)
-    robotics_completion = int((robotics_completed / robotics_total) * 100)
-    lego_completion = int((lego_completed / lego_total) * 100)
-    # typing_completion = int((typing_completed / typing_total) * 100)
-    
-    all_completed = [scratch_completed, circuits_completed, robotics_completed, lego_completed, typing_completed]
-
-    data = {
-        'scratch_completion': scratch_completion,
-        'circuits_completion': circuits_completion,
-        'robotics_completion': robotics_completion,
-        'lego_completion': lego_completion,
-        'circuits_total': circuits_total,
-        'robotics_total': robotics_total,
-        'lego_total': lego_total,
-        'typing_total': typing_total,
-        'all_completed': all_completed,
-        'total': total,
-    }
-    return render(request, 'webpages/dashboard.html', data)
-
-@login_required(login_url='login')
 @admin_only
 def scorecard(request):
     users = User.objects.all().exclude(id=4).exclude(id=6).order_by('first_name')
@@ -86,8 +44,9 @@ def scorecard(request):
     return render(request, 'webpages/scorecard.html', data)
 
 @login_required(login_url='login')
-def dash(request):
-    return render(request, 'index.html')
+def home(request):
+    topics = Topic.objects.all().order_by('topic_name').exclude(topic_name__startswith='Badge').exclude(topic_name__endswith='Belt')
+    return render(request, 'index.html', {'topics': topics})
 
 @login_required(login_url='login')
 def users(request):
@@ -97,6 +56,7 @@ def users(request):
     }
     return render(request, 'webpages/users.html', data)
 
+@login_required(login_url='login')
 def badges(request):
     return render(request, 'webpages/badges.html')
 

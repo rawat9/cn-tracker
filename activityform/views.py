@@ -14,22 +14,22 @@ def activity_form(request):
         project_id = request.POST['project_id']
         date_created = request.POST['date_created']
         ninja_comment = request.POST['ninja_comment']
-        # is_completed = request.POST['is_completed']
+        is_completed = request.POST.get('is_completed', '') == 'on'
 
         activity_form = Activity(user_id=User.objects.get(id=user_id), 
                         topic_id=Topic.objects.get(topic_id=topic_id),
                         project_id=Project.objects.get(project_id=project_id), 
                         date_created=date_created, 
-                        ninja_comment=ninja_comment)
-                        # is_completed=is_completed)
+                        ninja_comment=ninja_comment,
+                        is_completed=is_completed)
 
         activity_form.save()
         messages.success(request, 'Record Saved Successfully!')
-        return redirect('users')
+        return redirect('activity')
 
 def act(request):
     users = User.objects.all().exclude(id=4).exclude(id=6).order_by('first_name')
-    projects = Project.objects.all()
+    projects = Project.objects.all().order_by('topic_id')
     topics = Topic.objects.all()
 
     data = {
