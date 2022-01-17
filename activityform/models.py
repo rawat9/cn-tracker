@@ -12,10 +12,11 @@ class Activity(models.Model):
 		('Omar Veiga', 'Omar Veiga'), 
 		('Simran Tulsiani', 'Simran Tulsiani'),
 		('Ilham Esse', 'Ilham Esse'),
-		('Istabraq Ahmed', 'Istrabraq Ahmed'),
 		('Kyan Ung', 'Kyan Ung'),
 		('Ayman El Behri', 'Ayman El Behri'),
 		('Amber Barakat', 'Amber Barakat'),
+        ('Devarsh Patel', 'Devarsh Patel'),
+        ('Rushabh Rana', 'Rushabh Rana')
 	)
 
 	user_id = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
