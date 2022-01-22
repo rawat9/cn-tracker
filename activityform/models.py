@@ -19,10 +19,16 @@ class Activity(models.Model):
         ('Rushabh Rana', 'Rushabh Rana')
 	)
 
+	RATINGS = [
+		(1, '1'),
+		(2, '2'),
+		(3, '3'),
+	]
+
 	user_id = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
 	topic_id = models.ForeignKey(Topic, null=True, on_delete=models.SET_NULL)
 	project_id = models.ForeignKey(Project, null=True, on_delete=models.SET_NULL)
-	rating = models.IntegerField(null=True)
+	rating = models.IntegerField(choices=RATINGS)
 	sensei_name = models.CharField(choices=SENSEIS, max_length=255, null=True)
 	is_completed = models.BooleanField()
 	ninja_comment = models.TextField(blank=True)
