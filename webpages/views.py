@@ -59,8 +59,3 @@ def users(request):
 @login_required(login_url='login')
 def badges(request):
     return render(request, 'webpages/badges.html')
-
-def load_projects(request):
-    topic_id = request.GET.get('topic_id')
-    projects = Project.objects.filter(topic_id=topic_id)
-    return render(request, 'options.html', {'projects': projects})
