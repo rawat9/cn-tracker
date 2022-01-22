@@ -51,8 +51,15 @@ def home(request):
 @login_required(login_url='login')
 def users(request):
     users = User.objects.all().exclude(id=4).exclude(id=6).order_by('first_name')
+    total_users = User.objects.filter(is_superuser=False).count()
+    active_users = User.objects.filter(is_active=True).filter(is_superuser=False).count()
+    inactive_users = User.objects.filter(is_active=False).filter(is_superuser=False).count()
+
     data = {
         'users': users,
+        'total': total_users,
+        'active': active_users,
+        'inactive': inactive_users
     }
     return render(request, 'webpages/users.html', data)
 

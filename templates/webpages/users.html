@@ -34,10 +34,72 @@
             <div class="row justify-content-center">
               <div class="col">
                 <h2 class="h3 mb-0 page-title">Users</h2>
+                <p class="text-muted">List of our ninjas</p>
+              
+                <div class="row">
+
+                  <!-- Total users -->
+                  <div class="col-md-4 mb-4">
+                    <div class="card shadow">
+                      <div class="card-body">
+                        <div class="row align-items-center">
+                          <div class="col-3 text-center">
+                            <span class="circle circle-sm bg-primary">
+                              <i class="fe fe-16 fe-activity text-white mb-0"></i>
+                            </span>
+                          </div>
+                          <div class="col">
+                            <p class="small text-muted mb-0">Total</p>
+                            <span class="h3 mb-0"> {{ total }} </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Active Users -->
+                  <div class="col-md-4 mb-4">
+                    <div class="card shadow">
+                      <div class="card-body">
+                        <div class="row align-items-center">
+                          <div class="col-3 text-center">
+                            <span class="circle circle-sm bg-success">
+                              <i class="fe fe-16 fe-user-check text-white mb-0"></i>
+                            </span>
+                          </div>
+                          <div class="col">
+                            <p class="small text-muted mb-0">Active</p>
+                            <span class="h3 mb-0">{{ active }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Inactive users -->
+                  <div class="col-md-4 mb-4">
+                    <div class="card shadow">
+                      <div class="card-body">
+                        <div class="row align-items-center">
+                          <div class="col-3 text-center">
+                            <span class="circle circle-sm bg-danger">
+                              <i class="fe fe-16 fe-user-x text-white mb-0"></i>
+                            </span>
+                          </div>
+                          <div class="col">
+                            <p class="small text-muted mb-0">Inactive</p>
+                            <span class="h3 mb-0">{{ inactive }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
               </div>
-              <div class="col-auto">
+              <!-- <div class="col-auto">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#userModel"><span class="fe fe-plus fe-12 mr-2"></span>Add new</button>
-              </div>
+              </div> -->
             </div>
               <div class="row my-4">
                 <!-- Small table -->
