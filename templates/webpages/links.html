@@ -18,17 +18,21 @@
 			  <p>Admin Panel</p>
 			</div>
 			<div class="col-6 text-center">
-			  <div class="squircle bg-primary justify-content-center">
-				<i class="fe fe-activity fe-32 align-self-center text-white"></i>
-			  </div>
-			  <p>Activity</p>
+                <a href="{% url 'home' %}">
+                  <div class="squircle bg-primary justify-content-center">
+                    <i class="fe fe-home fe-32 align-self-center text-white"></i>
+                  </div>
+                </a>
+			  <p>Home</p>
 			</div>
 		  </div>
 		  <div class="row align-items-center">
 			<div class="col-6 text-center">
+            <a href="{% url 'users' %}">
 			  <div class="squircle bg-primary justify-content-center">
 				<i class="fe fe-users fe-32 align-self-center text-white"></i>
 			  </div>
+			  </a>
 			  <p>Users</p>
 			</div>
 			<div class="col-6 text-center">

@@ -3,6 +3,7 @@ from activityform.models import Activity
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from .models import Project, Topic
+from django.shortcuts import get_object_or_404
 from authentication.decorators import admin_only, ninja_only
 from django.db.models import *
 from django.db import connection
@@ -66,3 +67,17 @@ def users(request):
 @login_required(login_url='login')
 def badges(request):
     return render(request, 'webpages/badges.html')
+
+def leaderboard(request):
+    return render(request, 'webpages/leaderboard.html')
+
+def user_profile(request, pk):
+    user = get_object_or_404(User, pk=pk)
+    activities = Activity.objects.filter(user_id=pk)
+
+    data = {
+        'user': user,
+        'activities': activities
+    }
+
+    return render(request, 'webpages/user-profile.html', data)

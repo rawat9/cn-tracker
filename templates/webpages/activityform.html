@@ -34,6 +34,8 @@
   </head>
   <body class="horizontal  light  ">
     <div class="wrapper">
+	{% include 'includes/navbar.html' %}
+
       <main role="main" class="main-content">
         {% include 'messages.html' %}
         <div class="container-fluid">
@@ -106,6 +108,8 @@
         </div> <!-- .container-fluid -->
       </main> <!-- main -->
     </div> <!-- .wrapper -->
+
+    {% include 'webpages/links.html' %}
 
     <footer id="sticky-footer" class="flex-shrink-0 py-4 bg-white text-black">
       <div class="container text-center">

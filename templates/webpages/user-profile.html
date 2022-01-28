@@ -1,0 +1,134 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+    <title>User</title>
+
+    <!-- Simple bar CSS -->
+    <link rel="stylesheet" href="{% static 'css/simplebar.css' %}">
+
+    <!-- Fonts CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <!-- Icons CSS -->
+    <link rel="stylesheet" href="{% static 'css/feather.css' %}">
+
+    <!-- App CSS -->
+    <link rel="stylesheet" href="{% static 'css/app-light.css' %}" id="lightTheme">
+    <!-- <link rel="stylesheet" href="css/app-dark.css" id="darkTheme" disabled> -->
+
+  </head>
+
+  <body class="vertical  light  ">
+    <div class="wrapper">
+      {% include 'includes/navbar.html' %}
+      {% include 'includes/sidebar.html' %}
+      <main role="main" class="main-content">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col-12">
+              <h2 class="h3 mb-4 page-title">Profile</h2>
+              
+              <div class="col-12 mb-4">
+                <div class="card profile shadow">
+                  <div class="card-body my-4">
+                    <div class="row align-items-center">
+                      <div class="col-md-3 text-center mb-5">
+                        <a class="avatar avatar-xl">
+                          <img src="{% static 'assets/avatars/ninja.png' %}" alt="..." class="avatar-img rounded-circle">
+                        </a>
+                      </div>
+                      <div class="col">
+                        <div class="row align-items-center">
+                          <div class="col-md-7">
+                            <h4 class="mb-1">{{ user.first_name }} {{ user.last_name }}</h4>
+                            {% if user.is_active %}
+                              <p class="small mb-3"><span class="badge badge-success">Active</span></p>
+                            {% else %}
+                              <p class="small mb-3"><span class="badge badge-danger">Inactive</span></p>
+                            {% endif %}
+                          </div>
+                          <div class="col">
+                          </div>
+                        </div>
+                        <div class="row align-items-center">
+                          <div class="col-md-7 mb-2">
+                            <span class="small text-muted mb-0">Joined {{ user.date_joined }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div> <!-- / .row- -->
+                  </div> <!-- / .card-body - -->
+                </div> <!-- / .card- -->
+              </div>
+              
+              <div class="col-md-12 mb-4">
+                <div class="card shadow">
+                  <div class="card-header">
+                    <strong class="card-title">Activities</strong>
+                  </div>
+                  <div class="card-body">
+                    <div class="list-group list-group-flush my-n3">
+                      {% if activities %}
+                        {% for activity in activities %}
+                        <div class="list-group-item">
+                          <div class="row align-items-center">
+                            <div class="col-auto">
+                              <span class="circle circle-sm bg-warning"><i class="fe fe-zap fe-16 text-white"></i></span>
+                            </div>
+                            <div class="col">
+                              <small><strong>{{ activity.date_created }}, {{ activity.date_created|date:'l' }}</strong></small>
+                              <div class="mb-2 text-muted small">{{ activity.ninja_comment }}</div>
+                              <span class="badge badge-pill badge-warning">{{ activity.topic_id }}</span>
+                              <span class="badge badge-pill badge-warning">{{ activity.project_id }}</span>
+                            </div>
+                            <div class="col-auto pr-0">
+                              <small class="fe fe-more-vertical fe-16 text-muted"></small>
+                            </div>
+                          </div> <!-- / .row -->
+                        </div>
+                        {% endfor %}
+                      {% else %}
+                        <div class="mt-2 text-muted small"> Haven't started journey </div>
+                      {% endif %}
+                    </div> <!-- / .list-group -->
+                  </div> <!-- / .card-body -->
+                </div> <!-- / .card -->
+              </div> <!-- / .col -->
+
+            </div> <!-- /.col-12 -->
+          </div> <!-- .row -->
+        </div> <!-- .container-fluid -->
+        
+      </main> <!-- main -->
+    </div> <!-- .wrapper -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/simplebar.min.js"></script>
+    <script src='js/daterangepicker.js'></script>
+    <script src='js/jquery.stickOnScroll.js'></script>
+    <script src="js/tinycolor-min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/apps.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag()
+      {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'UA-56159088-1');
+    </script>
+  </body>
+</html>
