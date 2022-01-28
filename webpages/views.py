@@ -73,7 +73,7 @@ def leaderboard(request):
 
 def user_profile(request, pk):
     user = get_object_or_404(User, pk=pk)
-    activities = Activity.objects.filter(user_id=pk)
+    activities = Activity.objects.filter(user_id=pk).order_by('-date_created')
 
     data = {
         'user': user,
