@@ -1,9 +1,9 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
+from django.contrib import messages, auth
 from activityform.models import Activity
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Project, Topic
-from django.shortcuts import get_object_or_404
 from authentication.decorators import admin_only, ninja_only
 from django.db.models import *
 from django.db import connection
@@ -51,11 +51,28 @@ def home(request):
 
 @login_required(login_url='login')
 def users(request):
+    if request.method == 'POST':
+        firstname = request.POST['firstname']
+        lastname = request.POST['lastname']
+        username = f'{firstname.lower()}{lastname.lower()}n12'
+
+        if User.objects.filter(username=username).exists():
+            messages.warning(request, 'User already exists')
+            return redirect('users')
+        else:
+            new_user = User.objects.create_user(first_name=firstname, last_name=lastname, username=username, password='ninjan12')
+            new_user.save()
+            group = Group.objects.get(name='ninja')
+            new_user.groups.add(group)
+
+            messages.success(request, 'User successfully created!')
+            return redirect('users')
+
     users = User.objects.all().exclude(id=4).exclude(id=6).order_by('first_name')
     total_users = User.objects.filter(is_superuser=False).count()
     active_users = User.objects.filter(is_active=True).filter(is_superuser=False).count()
     inactive_users = User.objects.filter(is_active=False).filter(is_superuser=False).count()
-
+    
     data = {
         'users': users,
         'total': total_users,
@@ -68,16 +85,18 @@ def users(request):
 def badges(request):
     return render(request, 'webpages/badges.html')
 
+@login_required(login_url='login')
 def leaderboard(request):
     return render(request, 'webpages/leaderboard.html')
 
+@login_required(login_url='login')
 def user_profile(request, pk):
     user = get_object_or_404(User, pk=pk)
     activities = Activity.objects.filter(user_id=pk).order_by('-date_created')
 
     data = {
         'user': user,
-        'activities': activities
+        'activities': activities,
     }
 
     return render(request, 'webpages/user-profile.html', data)
