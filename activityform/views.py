@@ -33,7 +33,7 @@ def act(request):
     users = User.objects.all().exclude(id=4).exclude(id=6).order_by('first_name')
     projects = Project.objects.all().order_by('topic_id')
     topics = Topic.objects.all()
-    senseis = User.objects.filter(is_superuser=True).exclude(user_id=72)
+    senseis = User.objects.filter(is_superuser=True).exclude(id=72)
 
     data = {
         'users': users,
