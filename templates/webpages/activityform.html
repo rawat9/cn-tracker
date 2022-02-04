@@ -10,7 +10,7 @@
     <link rel="icon" href="favicon.ico">
     <title>CN | Activity Form</title>
 
-    <!-- Simple bar CSS -->
+    <!-- Simple Bar CSS -->
     <link rel="stylesheet" href="{% static 'css/simplebar.css' %}">
 
     <!-- Fonts CSS -->
@@ -19,10 +19,6 @@
     <!-- Icons CSS -->
     <link rel="stylesheet" href="{% static 'css/feather.css' %}">
     <link rel="stylesheet" href="{% static 'css/select2.css' %}">
-    <link rel="stylesheet" href="{% static 'css/dropzone.css' %}">
-    <link rel="stylesheet" href="{% static 'css/uppy.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/jquery.steps.css' %}">
-    <link rel="stylesheet" href="{% static 'css/jquery.timepicker.css' %}">
     <link rel="stylesheet" href="{% static 'css/quill.snow.css' %}">
 
     <!-- Date Range Picker CSS -->
@@ -41,8 +37,9 @@
         <div class="container-fluid">
           <div class="row justify-content-center">
             <div class="col-6">
-              <h1 class="page-title">Activity Form</h1>
+              <h2 class="page-title">Activity Form</h2>
               <br>
+
               <div class="card shadow mb-4">
                 <div class="card-body">
                   <form method="post" action="{% url 'activityform' %}" id="activityForm" class="needs-validation" data-projects-url="{% url 'ajax_load_projects' %}" novalidate>
@@ -60,7 +57,8 @@
                         </select>
                         <div class="valid-feedback"> Looks good! </div>
                       </div>
-                    </div> <!-- /.form-row -->
+                    </div>
+
                     <div class="form-row">
                       <div class="col-md-6 mb-3">
                         <label for="topicID">Topic</label>
@@ -78,19 +76,28 @@
                         </select>
                         <div class="valid-feedback"> Looks good! </div>
                       </div>
-                    </div> <!-- /.form-row -->
+                    </div>
                    
                     <div class="form-row">
-                      <div class="col-md-12 mb-3">
+                      <div class="col-md-6 mb-3">
                         <label for="date-input">Date</label>
                         <div class="input-group">
                           <input name="date_created" type="date" class="form-control" id="date-input" required>
                         </div>
                       </div>
+                      <div class="col-md-6 mb-3">
+                        <label for="sensei">Sensei</label>
+                        <select name="sensei_name" id="sensei" class="form-control select2" required>
+                          <option selected disabled hidden></option>
+                          {% for sensei in senseis %}
+                            <option value="{{ sensei.first_name }} {{ sensei.last_name }}">{{ sensei.first_name }} {{ sensei.last_name }}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
                     </div>
                     
                     <div class="form-group mb-3">
-                      <label for="message">Tell us what you did...</label>
+                      <label for="message">Comments <small>(optional)</small></label>
                       <textarea name="ninja_comment" class="form-control" id="message" required="" rows="4"></textarea>
                       <div class="invalid-feedback"> Please enter the comments in the textarea. </div>
                     </div>
@@ -100,7 +107,7 @@
                     </div>
                     <button class="btn btn-block btn-primary" type="submit">Submit</button>
                   </form>
-                </div> <!-- /.card-body -->
+                </div>
               </div>
             
             </div> <!-- .col-12 -->
@@ -110,15 +117,6 @@
     </div> <!-- .wrapper -->
 
     {% include 'webpages/links.html' %}
-
-    <footer id="sticky-footer" class="flex-shrink-0 py-4 bg-white text-black">
-      <div class="container text-center">
-        <i class="fe fe-alert-circle fe-9 text-danger"></i>
-        <small>
-          Please show your work to the Sensei before submitting!
-        </small>
-      </div>
-    </footer>
 
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/popper.min.js' %}"></script>

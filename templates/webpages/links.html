@@ -1,3 +1,11 @@
+{% load static %}
+
+<style>
+	.on-hover:hover {
+		text-decoration: none;
+	}
+</style>
+
 <div class="modal fade modal-shortcut modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 	  <div class="modal-content">
@@ -10,7 +18,7 @@
 		<div class="modal-body px-5">
 		  <div class="row align-items-center">
 			<div class="col-6 text-center">
-			  <a href="/admin/">
+			  <a href="/admin/" class="on-hover" target="_blank" rel="noopener noreferrer">
 			  	<div class="squircle bg-success justify-content-center">
 				  <i class="fe fe-cpu fe-32 align-self-center text-white"></i>
 				</div>
@@ -18,17 +26,17 @@
 			  <p>Admin Panel</p>
 			</div>
 			<div class="col-6 text-center">
-                <a href="{% url 'home' %}">
+                <a href="https://login.microsoftonline.com/te/franchiczar.onmicrosoft.com/b2c_1a_signin_codeninjas/oauth2/v2.0/authorize?client_id=0af8d70e-0159-4497-bf82-7e6498d1cf46&redirect_uri=https%3A%2F%2Fdojo.code.ninja&response_mode=form_post&response_type=code%20id_token&scope=openid%20profile%20offline_access%20https%3A%2F%2Ffranchiczar.onmicrosoft.com%2Ffranchiczar.com%2Fuser.read&state=OpenIdConnect.AuthenticationProperties%3Dejh6BU-U7E5zexV0qUKrW8aWtE0NF2NvYVw9Erg1Hb2JTNTehG5qeFTaLJ1rzJ1cRmcoHeGF6-X5p-agadnhLs38hMIfuh_b1vI4iRWEyF4ok96ICMyyvLwufjCytLqJ4vqmrT2TxI_QCGm3CvKE3-f12oqeqhWbp_Adxe_qNas_4G6hyYBOpdieRLzB3sh1xYbaqnyhXdsMpfZlhxfYw8E4xgyxGJlKBLL6Ns0FKitgke_yFgKx6KQ_ma0Yx0V7&nonce=637795846890823432.NGNhZjFmNDgtNDNmOC00YThhLWI1ODMtM2FmMjQ3MjAyYWJlZWNhYmU5NDMtNmJhYy00OGY5LThkMjItOGIyNWFjMWRlMmU5&x-client-SKU=ID_NET451&x-client-ver=5.2.1.0" class="on-hover" target="_blank" rel="noopener noreferrer">
                   <div class="squircle bg-primary justify-content-center">
                     <i class="fe fe-home fe-32 align-self-center text-white"></i>
                   </div>
                 </a>
-			  <p>Home</p>
+			  <p>Dojo</p>
 			</div>
 		  </div>
 		  <div class="row align-items-center">
 			<div class="col-6 text-center">
-            <a href="{% url 'users' %}">
+            <a href="{% url 'users' %}" class="on-hover">
 			  <div class="squircle bg-primary justify-content-center">
 				<i class="fe fe-users fe-32 align-self-center text-white"></i>
 			  </div>
@@ -36,7 +44,7 @@
 			  <p>Users</p>
 			</div>
 			<div class="col-6 text-center">
-			  	<a href="{% url 'logout' %}">
+			  	<a href="{% url 'logout' %}" class="on-hover">
 					<div class="squircle bg-primary justify-content-center">
 						<i class="fe fe-log-out fe-32 align-self-center text-white"></i>
 					</div>

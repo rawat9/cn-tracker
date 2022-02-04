@@ -5,31 +5,10 @@ from webpages.models import Project, Topic
 # Create your models here.
 
 class Activity(models.Model):
-	SENSEIS = (
-		('Anurag Rawat', 'Anurag Rawat'),
-		('Siddhant Dalal', 'Siddhant Dalal'),
-		('Marta Garcia', 'Marta Garcia'),	
-		('Omar Veiga', 'Omar Veiga'), 
-		('Simran Tulsiani', 'Simran Tulsiani'),
-		('Ilham Esse', 'Ilham Esse'),
-		('Kyan Ung', 'Kyan Ung'),
-		('Ayman El Behri', 'Ayman El Behri'),
-		('Amber Barakat', 'Amber Barakat'),
-        ('Devarsh Patel', 'Devarsh Patel'),
-        ('Rushabh Rana', 'Rushabh Rana')
-	)
-
-	RATINGS = [
-		(1, '1'),
-		(2, '2'),
-		(3, '3'),
-	]
-
 	user_id = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
 	topic_id = models.ForeignKey(Topic, null=True, on_delete=models.SET_NULL)
 	project_id = models.ForeignKey(Project, null=True, on_delete=models.SET_NULL)
-	rating = models.IntegerField(choices=RATINGS)
-	sensei_name = models.CharField(choices=SENSEIS, max_length=255, null=True)
+	sensei_name = models.CharField(max_length=255, null=True)
 	is_completed = models.BooleanField()
 	ninja_comment = models.TextField(blank=True)
 	sensei_comment = models.TextField(blank=True)
