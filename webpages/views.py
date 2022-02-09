@@ -69,9 +69,9 @@ def users(request):
             return redirect('users')
 
     users = User.objects.all().exclude(id=4).exclude(id=6).order_by('first_name')
-    total_users = User.objects.filter(is_superuser=False).count()
-    active_users = User.objects.filter(is_active=True).filter(is_superuser=False).count()
-    inactive_users = User.objects.filter(is_active=False).filter(is_superuser=False).count()
+    total_users = User.objects.filter(groups__name="ninja").count()
+    active_users = User.objects.filter(groups__name="ninja", is_active=True).count()
+    inactive_users = User.objects.filter(groups__name="ninja", is_active=False).count()
     
     data = {
         'users': users,
