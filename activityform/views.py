@@ -14,19 +14,25 @@ def activity_form(request):
         topic_id = request.POST['topic_id']
         project_id = request.POST['project_id']
         date_created = request.POST['date_created']
+        sensei_name = request.POST['sensei_name']
         ninja_comment = request.POST['ninja_comment']
         is_completed = request.POST.get('is_completed', '') == 'on'
 
-        activity_form = Activity(user_id=User.objects.get(id=user_id), 
-                        topic_id=Topic.objects.get(topic_id=topic_id),
-                        project_id=Project.objects.get(project_id=project_id), 
-                        date_created=date_created, 
-                        ninja_comment=ninja_comment,
-                        is_completed=is_completed)
+        if Activity.objects.filter(user_id=user_id, project_id=project_id, is_completed=True).exists():
+            messages.warning(request, 'Record Already Exists')
+            return redirect('activity')
+        else: 
+            activity_form = Activity(user_id=User.objects.get(id=user_id), 
+                            topic_id=Topic.objects.get(topic_id=topic_id),
+                            project_id=Project.objects.get(project_id=project_id), 
+                            date_created=date_created, 
+                            sensei_name=sensei_name,
+                            ninja_comment=ninja_comment,
+                            is_completed=is_completed)
 
-        activity_form.save()
-        messages.success(request, 'Record Saved Successfully!')
-        return redirect('activity')
+            activity_form.save()
+            messages.success(request, 'Record Saved Successfully!')
+            return redirect('activity')
 
 @login_required(login_url='login')
 def act(request):
