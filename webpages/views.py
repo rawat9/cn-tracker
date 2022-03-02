@@ -54,7 +54,7 @@ def users(request):
     if request.method == 'POST':
         firstname = request.POST['firstname']
         lastname = request.POST['lastname']
-        username = f'{firstname.lower()}{lastname.lower()}n12'
+        username = f'{firstname.strip().lower()}{lastname.strip().lower()}n12'
 
         if User.objects.filter(username=username).exists():
             messages.warning(request, 'User already exists')

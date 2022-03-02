@@ -2,8 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from webpages.models import Project, Topic
 
-# Create your models here.
-
 class Activity(models.Model):
 	user_id = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
 	topic_id = models.ForeignKey(Topic, null=True, on_delete=models.SET_NULL)

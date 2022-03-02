@@ -121,18 +121,16 @@
                         </thead>
                         <tbody>
                         {% for user in users %}
-                          {% if not user.is_superuser %}
-                            <tr>
-                                <td><a href="{% url 'user' user.id %}">{{ user.first_name }} {{ user.last_name }}</a></td>
-                                <td>{{ user.username }}</td>
-                                <td>{{ user.first_name|lower }}.{{ user.last_name|lower }}</td>
-                                {% if user.is_active %}
-                                  <td><span class="badge badge-pill badge-success text-white">Active</span></td>
-                                {% else %}
-                                  <td><span class="badge badge-pill badge-danger text-white">Inactive</span></td>
-                                {% endif %}
-                            </tr>
-                          {% endif %}
+                          <tr>
+                              <td><a href="{% url 'user' user.id %}">{{ user.first_name }} {{ user.last_name }}</a></td>
+                              <td>{{ user.username }}</td>
+                              <td>{{ user.first_name|lower }}.{{ user.last_name|lower }}</td>
+                              {% if user.is_active %}
+                                <td><span class="badge badge-pill badge-success text-white">Active</span></td>
+                              {% else %}
+                                <td><span class="badge badge-pill badge-danger text-white">Inactive</span></td>
+                              {% endif %}
+                          </tr>
                         {% endfor %}
                         </tbody>
                       </table>
