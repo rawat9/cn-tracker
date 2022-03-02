@@ -68,7 +68,7 @@ def users(request):
             messages.success(request, 'User successfully created!')
             return redirect('users')
 
-    users = User.objects.all().exclude(id=4).exclude(id=6).order_by('first_name')
+    users = User.objects.filter(groups__name='ninja').order_by('first_name')
     total_users = User.objects.filter(groups__name="ninja").count()
     active_users = User.objects.filter(groups__name="ninja", is_active=True).count()
     inactive_users = User.objects.filter(groups__name="ninja", is_active=False).count()
