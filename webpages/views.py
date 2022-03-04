@@ -1,23 +1,24 @@
 from django.contrib.auth.models import User, Group
-from django.contrib import messages, auth
+from django.contrib import messages
 from activityform.models import Activity
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Project, Topic
-from authentication.decorators import admin_only, ninja_only
+from authentication.decorators import admin_only
 from django.db.models import *
 from django.db import connection
 
 
-@login_required(login_url='login')
+@login_required(login_url="login")
 @admin_only
 def scorecard(request):
-    users = User.objects.all().exclude(id=4).exclude(id=6).order_by('first_name')
-    projects = Project.objects.all().order_by('topic_id')
+    users = User.objects.all().exclude(id=4).exclude(id=6).order_by("first_name")
+    projects = Project.objects.all().order_by("topic_id")
     topics = Topic.objects.all()
 
     cursor = connection.cursor()
-    cursor.execute('''SELECT x.first_name, x.last_name, sum(s) as scratch , sum(c) as Circuits,sum(r) as Robotics,Sum(l) as Lego, sum(m) as Minecraft, (sum(s)+sum(c)+sum(r)+sum(l)+sum(m)) as total 
+    cursor.execute(
+        """SELECT x.first_name, x.last_name, sum(s) as scratch , sum(c) as Circuits,sum(r) as Robotics,Sum(l) as Lego, sum(m) as Minecraft, (sum(s)+sum(c)+sum(r)+sum(l)+sum(m)) as total 
                     FROM 
                     (SELECT first_name , last_name , topic_id_id , 
                     CASE 
@@ -33,70 +34,102 @@ def scorecard(request):
                         FROM activityform_activity a 
                         INNER JOIN auth_user au on au.id = a.user_id_id 
                         GROUP by 1,2,3)x 
-                        GROUP BY 1,2''')
+                        GROUP BY 1,2"""
+    )
     games = cursor.fetchall()
 
-    data = {
-        'users': users,
-        'projects': projects,
-        'topics': topics,
-        'games': games
-    }
-    return render(request, 'webpages/scorecard.html', data)
+    data = {"users": users, "projects": projects, "topics": topics, "games": games}
+    return render(request, "webpages/scorecard.html", data)
 
-@login_required(login_url='login')
+
+@login_required(login_url="login")
 def home(request):
-    topics = Topic.objects.all().order_by('topic_name').exclude(topic_name__startswith='Badge').exclude(topic_name__endswith='Belt')
-    return render(request, 'index.html', {'topics': topics})
+    topics = (
+        Topic.objects.all()
+        .order_by("topic_name")
+        .exclude(topic_name__startswith="Badge")
+        .exclude(topic_name__endswith="Belt")
+    )
+    return render(request, "index.html", {"topics": topics})
 
-@login_required(login_url='login')
-def users(request):
-    if request.method == 'POST':
-        firstname = request.POST['firstname']
-        lastname = request.POST['lastname']
-        username = f'{firstname.strip().lower()}{lastname.strip().lower()}n12'
+
+def add_user(request):
+    if request.method == "POST":
+        firstname = request.POST["firstname"]
+        lastname = request.POST["lastname"]
+        username = f"{firstname.strip().lower()}{lastname.strip().lower()}n12"
 
         if User.objects.filter(username=username).exists():
-            messages.warning(request, 'User already exists')
-            return redirect('users')
+            messages.warning(request, "User already exists")
+            return redirect("users")
         else:
-            new_user = User.objects.create_user(first_name=firstname, last_name=lastname, username=username, password='ninjan12')
+            new_user = User.objects.create_user(
+                first_name=firstname.title(),
+                last_name=lastname.title(),
+                username=username,
+                password="ninjan12",
+            )
             new_user.save()
-            group = Group.objects.get(name='ninja')
+            group = Group.objects.get(name="ninja")
             new_user.groups.add(group)
 
-            messages.success(request, 'User successfully created!')
-            return redirect('users')
+            messages.success(request, "User successfully created!")
+            return redirect("users")
 
-    users = User.objects.filter(groups__name='ninja').order_by('first_name')
+
+def edit_user(request, pk):
+    user = get_object_or_404(User, pk=pk)
+    return render(request, "webpages/edit-user.html", {"user": user})
+
+
+def update_user(request, pk):
+    user = get_object_or_404(User, pk=pk)
+
+    user.first_name = request.POST["firstname"]
+    user.last_name = request.POST["lastname"]
+    user.is_active = request.POST.get("status", "") == "on"
+    user.username = (
+        f"{user.first_name.strip().lower()}{user.last_name.strip().lower()}n12"
+    )
+    user.save()
+    messages.success(request, "User updated successfully!")
+    return redirect("users")
+
+
+@login_required(login_url="login")
+def users(request):
+    users = User.objects.filter(groups__name="ninja").order_by("first_name")
     total_users = User.objects.filter(groups__name="ninja").count()
     active_users = User.objects.filter(groups__name="ninja", is_active=True).count()
     inactive_users = User.objects.filter(groups__name="ninja", is_active=False).count()
-    
+
     data = {
-        'users': users,
-        'total': total_users,
-        'active': active_users,
-        'inactive': inactive_users
+        "users": users,
+        "total": total_users,
+        "active": active_users,
+        "inactive": inactive_users,
     }
-    return render(request, 'webpages/users.html', data)
+    return render(request, "webpages/users.html", data)
 
-@login_required(login_url='login')
+
+@login_required(login_url="login")
 def badges(request):
-    return render(request, 'webpages/badges.html')
+    return render(request, "webpages/badges.html")
 
-@login_required(login_url='login')
+
+@login_required(login_url="login")
 def leaderboard(request):
-    return render(request, 'webpages/leaderboard.html')
+    return render(request, "webpages/leaderboard.html")
 
-@login_required(login_url='login')
+
+@login_required(login_url="login")
 def user_profile(request, pk):
     user = get_object_or_404(User, pk=pk)
-    activities = Activity.objects.filter(user_id=pk).order_by('-date_created')
+    activities = Activity.objects.filter(user_id=pk).order_by("-date_created")
 
     data = {
-        'user': user,
-        'activities': activities,
+        "user": user,
+        "activities": activities,
     }
 
-    return render(request, 'webpages/user-profile.html', data)
+    return render(request, "webpages/user-profile.html", data)

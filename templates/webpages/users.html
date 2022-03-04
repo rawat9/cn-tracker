@@ -105,7 +105,7 @@
                       <div class="col ml-auto">
                         <div class="dropdown float-right">
                           <button class="btn btn-sm btn-secondary" type="button" id="export" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Export</button>
-                          <button class="btn btn-sm btn-info" type="button" data-toggle="modal" data-target="#userModel">Add new <i class="fe fe-9 fe-plus text-white mb-0"></i></button>
+                          <button class="btn btn-sm btn-info" type="button" data-toggle="modal" data-target="#addUser">Add new <i class="fe fe-9 fe-plus text-white mb-0"></i></button>
                         </div>
                       </div>
 
@@ -117,6 +117,7 @@
                             <th>Username</th>
                             <th>Dojo</th>
                             <th>Active</th>
+                            <th>Edit</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -125,11 +126,14 @@
                               <td><a href="{% url 'user' user.id %}">{{ user.first_name }} {{ user.last_name }}</a></td>
                               <td>{{ user.username }}</td>
                               <td>{{ user.first_name|lower }}.{{ user.last_name|lower }}</td>
-                              {% if user.is_active %}
-                                <td><span class="badge badge-pill badge-success text-white">Active</span></td>
-                              {% else %}
-                                <td><span class="badge badge-pill badge-danger text-white">Inactive</span></td>
-                              {% endif %}
+                                {% if user.is_active %}
+                                  <td><span class="badge badge-pill badge-success text-white">Active</span></td>
+                                {% else %}
+                                  <td><span class="badge badge-pill badge-danger text-white">Inactive</span></td>
+                                {% endif %}
+                              <td>
+                                <a href="{% url 'edit' user.id %}"><i class="fe fe-5 fe-edit mb-0"></i></a>
+                              </td>
                           </tr>
                         {% endfor %}
                         </tbody>
@@ -145,8 +149,8 @@
         
         {% include 'webpages/links.html' %}
 
-        <!-- Modal -->
-        <div class="modal fade" id="userModel" tabindex="-1" role="dialog" aria-labelledby="verticalModalTitle" aria-hidden="true">
+        <!-- Add New User -->
+        <div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="verticalModalTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -156,7 +160,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                <form method="POST" action="{% url 'users' %}">
+                <form method="POST" action="{% url 'add' %}">
                   {% csrf_token %}
                   <div class="form-group">
                     <label class="col-form-label">First Name:</label>
