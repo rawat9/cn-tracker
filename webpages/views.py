@@ -142,7 +142,7 @@ def user_profile(request, pk):
 def export_excel(request):
     response = HttpResponse(content_type="application/ms-excel")
     response["Content-Disposition"] = (
-        "attachment; filename=User" + datetime.today().strftime("%b-%d-%Y") + ".xls"
+        "attachment; filename=User" + '-' + datetime.today().strftime("%b-%d-%Y") + ".xls"
     )
 
     wb = xlwt.Workbook(encoding="utf-8")
