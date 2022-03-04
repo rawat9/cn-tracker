@@ -11,4 +11,7 @@ urlpatterns = [
     path("update/<int:pk>", views.update_user, name="update"),
     path("badges", views.badges, name="badges"),
     path("leaderboard", views.leaderboard, name="leaderboard"),
+    
+    # data-export
+    path("export_excel", views.export_excel, name="export-excel"),
 ]

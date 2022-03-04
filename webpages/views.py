@@ -1,12 +1,16 @@
+from datetime import datetime
 from django.contrib.auth.models import User, Group
+from django.db.models.functions import Concat, Lower, Cast
 from django.contrib import messages
+from django.http import HttpResponse
 from activityform.models import Activity
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Project, Topic
 from authentication.decorators import admin_only
-from django.db.models import *
+from django.db.models import DateField, Value as V, Case, When
 from django.db import connection
+import xlwt
 
 
 @login_required(login_url="login")
@@ -133,3 +137,53 @@ def user_profile(request, pk):
     }
 
     return render(request, "webpages/user-profile.html", data)
+
+
+def export_excel(request):
+    response = HttpResponse(content_type="application/ms-excel")
+    response["Content-Disposition"] = (
+        "attachment; filename=User" + datetime.today().strftime("%b-%d-%Y") + ".xls"
+    )
+
+    wb = xlwt.Workbook(encoding="utf-8")
+    ws = wb.add_sheet("Users")
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = [
+        "Firstname",
+        "Lastname",
+        "Username",
+        "Dojo Username",
+        "Status",
+        "Date Joined",
+    ]
+
+    for col in range(len(columns)):
+        ws.write(0, col, columns[col], font_style)
+
+    font_style = xlwt.XFStyle()
+
+    rows = (
+        User.objects.filter(groups__name="ninja")
+        .order_by("first_name")
+        .values_list("first_name", "last_name", "username")
+        .annotate(
+            dojo_username=Concat(Lower("first_name"), V("."), Lower("last_name")),
+            status=Case(
+                When(is_active=True, then=V("Active")),
+                When(is_active=False, then=V("Inactive")),
+            ),
+            date=Cast("date_joined", output_field=DateField()),
+        )
+    )
+
+    row = 0
+    for data in rows:
+        row += 1
+
+        for col in range(len(data)):
+            ws.write(row, col, str(data[col]), font_style)
+
+    wb.save(response)
+    return response
