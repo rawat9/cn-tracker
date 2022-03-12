@@ -19,7 +19,7 @@ def activity_form(request):
 
         if Activity.objects.filter(
             user_id=user_id, project_id=project_id, is_completed=True
-        ).exists():
+        ).exclude(topic_id=21).exists():
             messages.warning(request, "Record Already Exists")
             return redirect("activity")
         else:
