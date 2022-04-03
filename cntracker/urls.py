@@ -10,5 +10,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('webpages.urls')),
     path('auth/', include('authentication.urls')),
-    path('activityform/', include('activityform.urls'))
+    path('activityform/', include('activityform.urls')),
+    path('solutions/', include('solutions.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
