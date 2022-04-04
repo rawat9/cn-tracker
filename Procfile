@@ -1,1 +1,1 @@
-web: gunicorn cntracker.wsgi
+web: gunicorn config.wsgi
