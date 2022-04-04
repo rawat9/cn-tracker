@@ -9,6 +9,6 @@ class Solution(models.Model):
 	project_id = models.ForeignKey(Project, null=True, on_delete=models.SET_NULL)
 	question_id = models.BigAutoField(primary_key=True, unique=True, auto_created=True)
 	question_title = models.CharField(max_length=255, null=True)
-	notes = RichTextField(null=True)
+	notes = RichTextField(null=True, blank=True)
 	solution = RichTextField(config_name='special')
 	date_created = models.DateTimeField(auto_now_add=True)
