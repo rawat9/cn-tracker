@@ -142,7 +142,10 @@ def user_profile(request, pk):
 def export_excel(request):
     response = HttpResponse(content_type="application/ms-excel")
     response["Content-Disposition"] = (
-        "attachment; filename=User" + '-' + datetime.today().strftime("%b-%d-%Y") + ".xls"
+        "attachment; filename=User"
+        + "-"
+        + datetime.today().strftime("%b-%d-%Y")
+        + ".xls"
     )
 
     wb = xlwt.Workbook(encoding="utf-8")
@@ -187,3 +190,11 @@ def export_excel(request):
 
     wb.save(response)
     return response
+
+
+def error_404(request, exception):
+    return render(request, "error/error_404.html")
+
+
+def error_500(request):
+    return render(request, "error/error_500.html")
