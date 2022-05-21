@@ -16,6 +16,6 @@ class TestUrls(SimpleTestCase):
         url = reverse("user", args=[40])
         self.assertEqual(resolve(url).func, user_profile)
 
-    def test_url_ok(self):
-        response = self.client.get("/auth/login/?next=/")
-        self.assertEqual(response.status_code, 200)
+    def test_url_activityform_url(self):
+        url = reverse("activityform")
+        self.assertEqual(resolve(url).route, "activityform/activityform/")
