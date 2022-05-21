@@ -41,12 +41,15 @@
               <br>
 
               <div class="card shadow mb-4">
+              <div class="card-header">
+                <small>* indicates field required</small>
+              </div>
                 <div class="card-body">
                   <form method="post" action="{% url 'activityform' %}" id="activityForm" class="needs-validation" data-projects-url="{% url 'ajax_load_projects' %}" novalidate>
                     {% csrf_token %}
                     <div class="form-row">
                       <div class="col-md-12 mb-3">
-                        <label for="ninja">Name</label>
+                        <label for="ninja">Name*</label>
                         <select name="user_id" class="form-control select2" id="ninja" required>
                           <option selected disabled hidden></option>
                           {% for user in users %}
@@ -61,7 +64,7 @@
 
                     <div class="form-row">
                       <div class="col-md-6 mb-3">
-                        <label for="topicID">Topic</label>
+                        <label for="topicID">Topic*</label>
                         <select name="topic_id" id="topic" class="form-control select2" required>
                           <option selected disabled hidden></option>
                           {% for topic in topics %}
@@ -71,22 +74,16 @@
                         <div class="valid-feedback"> Looks good! </div>
                       </div>
                       <div class="col-md-6 mb-3">
-                        <label for="projectID">Project</label>
-                        <select name="project_id"  id="projects" class="form-control select2" required>
+                        <label for="projectID">Project*</label>
+                        <select name="project_id" id="projects" class="form-control select2" required>
                         </select>
                         <div class="valid-feedback"> Looks good! </div>
                       </div>
                     </div>
                    
                     <div class="form-row">
-                      <div class="col-md-6 mb-3">
-                        <label for="date-input">Date</label>
-                        <div class="input-group">
-                          <input name="date_created" type="date" class="form-control" id="date-input" required>
-                        </div>
-                      </div>
-                      <div class="col-md-6 mb-3">
-                        <label for="sensei">Sensei</label>
+                      <div class="col-md-4 mb-3">
+                        <label for="sensei">Sensei*</label>
                         <select name="sensei_name" id="sensei" class="form-control select2" required>
                           <option selected disabled hidden></option>
                           {% for sensei in senseis %}
@@ -94,11 +91,28 @@
                           {% endfor %}
                         </select>
                       </div>
+                      <div class="col-md-4 mb-3">
+                        <label for="lp">Laptop Number 
+                          <i class="fe fe-help-circle fe-12 mr-4" data-toggle="tooltip" data-placement="top" title="Laptop number on which the ninja was working. Optional in case of LEGO/Circuits"></i>
+                        </label>
+                        <select name="laptop_num" id="lp" class="form-control select2">
+                          <option selected disabled hidden></option>
+                          {% for num in nums %}
+                            <option value="{{ num }}">{{ num }}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                      <div class="col-md-4 mb-3">
+                        <label for="date-input">Date*</label>
+                        <div class="input-group">
+                          <input name="date_created" type="date" class="form-control" id="date-input" required>
+                        </div>
+                      </div>
                     </div>
                     
                     <div class="form-group mb-3">
-                      <label for="message">Comments <small>(optional)</small></label>
-                      <textarea name="ninja_comment" class="form-control" id="message" rows="4"></textarea>
+                      <label for="message">Comments</label>
+                      <textarea name="ninja_comment" class="form-control" id="message" rows="3"></textarea>
                     </div>
                     <div class="custom-control custom-checkbox mb-3">
                       <input name="is_completed" type="checkbox" class="custom-control-input" id="customControlValidation16">
@@ -209,5 +223,10 @@
       gtag('js', new Date());
       gtag('config', 'UA-56159088-1');
     </script>
+    <script>
+      $(document).ready(function(){
+          $('[data-toggle="tooltip"]').tooltip();   
+      });
+  </script>
   </body>
 </html>

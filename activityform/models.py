@@ -7,9 +7,9 @@ class Activity(models.Model):
 	topic_id = models.ForeignKey(Topic, null=True, on_delete=models.SET_NULL)
 	project_id = models.ForeignKey(Project, null=True, on_delete=models.SET_NULL)
 	sensei_name = models.CharField(max_length=255, null=True)
+	laptop_num = models.CharField(max_length=50, null=True)
 	is_completed = models.BooleanField()
 	ninja_comment = models.TextField(blank=True)
-	sensei_comment = models.TextField(blank=True)
 	date_created = models.DateField(null=True)
 
 	class Meta:
