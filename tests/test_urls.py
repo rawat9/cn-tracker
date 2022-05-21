@@ -15,3 +15,7 @@ class TestUrls(SimpleTestCase):
     def test_user_profile_url(self):
         url = reverse("user", args=[40])
         self.assertEqual(resolve(url).func, user_profile)
+
+    def test_url_ok(self):
+        response = self.client.get("/auth/login/?next=/")
+        self.assertEqual(response.status_code, 200)
