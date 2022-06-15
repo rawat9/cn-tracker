@@ -38,64 +38,90 @@
               <p class="text-muted">List of our ninjas</p>
 
               <div class="row">
-
-                <!-- Total users -->
-                <div class="col-md-4 mb-4">
+                <div class="col-md-8 mb-4">
                   <div class="card shadow">
-                    <div class="card-body">
-                      <div class="row align-items-center">
-                        <div class="col-3 text-center">
-                          <span class="circle circle-sm bg-primary">
-                            <i class="fe fe-16 fe-activity text-white mb-0"></i>
-                          </span>
-                        </div>
-                        <div class="col">
-                          <p class="small text-muted mb-0">Total</p>
-                          <span class="h3 mb-0"> {{ total }} </span>
-                        </div>
+                    <div class="card-header">
+                      <strong class="card-title mb-0">Users by Month</strong>
+                      <div class="btn-group float-right" role="group" aria-label="Button group example">
+                        <span class="badge badge-primary">2022</span>
                       </div>
+                    </div>
+                    <div class="card-body">
+                      <canvas id="barChartjs" width="400" height="300"></canvas>
+                    </div>
+                    <div class="card-footer">
+                      <button class="btn btn-sm btn-outline-primary mr-2" id="line">Line</button>
+                      <button class="btn btn-sm btn-outline-success mr-2" id="bar">Bar</button>
                     </div>
                   </div>
                 </div>
 
-                <!-- Active Users -->
-                <div class="col-md-4 mb-4">
-                  <div class="card shadow">
-                    <div class="card-body">
-                      <div class="row align-items-center">
-                        <div class="col-3 text-center">
-                          <span class="circle circle-sm bg-success">
-                            <i class="fe fe-16 fe-user-check text-white mb-0"></i>
-                          </span>
-                        </div>
-                        <div class="col">
-                          <p class="small text-muted mb-0">Active</p>
-                          <span class="h3 mb-0">{{ active }}</span>
+                <div class="col-md-4 mb-0">
+
+                  <!-- Total users -->
+                  <div class="col-md-12 mb-4">
+                    <div class="card shadow">
+                      <div class="card-header">
+                        <strong class="card-title mb-0">Total</strong>
+                      </div>
+                      <div class="card-body">
+                        <div class="row align-items-center">
+                          <div class="col-3 text-center">
+                            <span class="circle circle-sm bg-primary">
+                              <i class="fe fe-16 fe-activity text-white mb-0"></i>
+                            </span>
+                          </div>
+                          <div class="col-auto">
+                            <span class="h3 mb-0"> {{ total }} </span>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <!-- Inactive users -->
-                <div class="col-md-4 mb-4">
-                  <div class="card shadow">
-                    <div class="card-body">
-                      <div class="row align-items-center">
-                        <div class="col-3 text-center">
-                          <span class="circle circle-sm bg-danger">
-                            <i class="fe fe-16 fe-user-x text-white mb-0"></i>
-                          </span>
-                        </div>
-                        <div class="col">
-                          <p class="small text-muted mb-0">Inactive</p>
-                          <span class="h3 mb-0">{{ inactive }}</span>
+                  <!-- Active Users -->
+                  <div class="col-md-12 mb-4">
+                    <div class="card shadow">
+                      <div class="card-header">
+                        <strong class="card-title mb-0">Active</strong>
+                      </div>
+                      <div class="card-body">
+                        <div class="row align-items-center">
+                          <div class="col-3 text-center">
+                            <span class="circle circle-sm bg-success">
+                              <i class="fe fe-16 fe-user-check text-white mb-0"></i>
+                            </span>
+                          </div>
+                          <div class="col">
+                            <span class="h3 mb-0">{{ active }}</span>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
+                  <!-- Inactive users -->
+                  <div class="col-md-12 mb-4">
+                    <div class="card shadow">
+                      <div class="card-header">
+                        <strong class="card-title mb-0">Inactive</strong>
+                      </div>
+                      <div class="card-body">
+                        <div class="row align-items-center">
+                          <div class="col-3 text-center">
+                            <span class="circle circle-sm bg-danger">
+                              <i class="fe fe-16 fe-user-x text-white mb-0"></i>
+                            </span>
+                          </div>
+                          <div class="col">
+                            <span class="h3 mb-0">{{ inactive }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
               </div>
 
               <div class="row my-3">
@@ -191,6 +217,70 @@
   <script src="{% static 'js/tinycolor-min.js' %}"}></script>
   <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
   <script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'js/Chart.min.js' %}"></script>
+
+    
+  <script>
+    var ChartOptions = {
+      maintainAspectRatio: !1,
+      responsive: !0,
+      legend: { display: !1 },
+      scales: {
+        xAxes: [{ gridLines: { display: !1 } }],
+        yAxes: [
+          {
+            gridLines: {
+              display: !1,
+            },
+          },
+        ],
+      },
+    }
+
+    const ChartData = {
+      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      datasets: [
+        {
+          label: "Users",
+          barThickness: 15,
+          backgroundColor: "#4169E1",
+          borderColor: "#0096FF",
+          pointRadius: !1,
+          pointColor: "#3b8bba",
+          pointStrokeColor: "rgba(60,141,188,1)",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(60,141,188,1)",
+          data: {{ monthly_users }},
+          fill: "#0096FF",
+          lineTension: 0.1,
+        },
+      ],
+    }
+
+
+    const ctx = document.getElementById("barChartjs");
+    const chart = new Chart(ctx, {
+        type: "bar",
+        data: ChartData,
+        options: ChartOptions,
+      });
+
+    const line = document.getElementById('line');
+    const bar = document.getElementById('bar');
+
+    line.addEventListener('click', changeLine);
+    bar.addEventListener('click', changeBar);
+
+    function changeLine() {
+      chart.config.type = 'line'
+      chart.update()
+    }
+
+    function changeBar() {
+      chart.config.type = 'bar'
+      chart.update()
+    }
+  </script>
 
   <script>
     $('#dataTable-1').DataTable(

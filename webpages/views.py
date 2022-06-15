@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Project, Topic
 from authentication.decorators import admin_only
-from django.db.models import DateField, Value as V, Case, When
+from django.db.models import DateField, Value as V, Case, When, Count
 from django.db import connection
 import xlwt
 
@@ -107,12 +107,26 @@ def users(request):
     active_users = User.objects.filter(groups__name="ninja", is_active=True).count()
     inactive_users = User.objects.filter(groups__name="ninja", is_active=False).count()
 
+    users_by_month = (
+        users.filter(date_joined__year=2022)
+        .values("date_joined__month")
+        .annotate(c=Count("id"))
+        .order_by("date_joined__month")
+        .values_list("date_joined__month", "c")
+    )
+
+    monthly_users = [0] * 12
+    for i, count in list(users_by_month):
+        monthly_users[i - 1] = count
+
     data = {
         "users": users,
         "total": total_users,
         "active": active_users,
         "inactive": inactive_users,
+        "monthly_users": monthly_users,
     }
+
     return render(request, "webpages/users.html", data)
 
 
